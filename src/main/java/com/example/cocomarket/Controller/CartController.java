@@ -65,7 +65,14 @@ public class CartController {
             Produit produit = produit__repository.getReferenceById(idProduit);
             cart_service.Remove_Product(panier, produit);
         }*/
-
+/*
+    @DeleteMapping("/panier/supprimer-produit/{idProduit}")
+    public void supprimerProduit(@PathVariable Integer idProduit, HttpSession session) {
+        CART panier = (CART) session.getAttribute("panier");
+        if (panier != null) {
+            Produit produit = produit__repository.getReferenceById(idProduit);
+            cart_service.Remove_Product(panier, produit);
+        }*/
     @DeleteMapping("/panier/supprimer-produit/{idProduit}/{idCart}")
     public void supprimerProduit(@PathVariable ("idProduit")Integer idProduit,
                                  @PathVariable ("idCart") Integer idCart) {
