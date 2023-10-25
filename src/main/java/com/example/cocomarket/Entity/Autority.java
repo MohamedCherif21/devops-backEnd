@@ -15,6 +15,7 @@ public class Autority {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @NonNull
     private Integer id;
+    private String email;
     private String name;
     // @ManyToMany(mappedBy = "autoritys")
     // private Set<Roles> RolesAutority;
