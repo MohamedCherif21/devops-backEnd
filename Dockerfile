@@ -1,10 +1,9 @@
 FROM openjdk:8-jdk-alpine
 
-# Définissez le répertoire de travail dans le conteneur
-WORKDIR /app
+EXPOSE 8088
 
 # Copiez le JAR de votre application dans le conteneur
-COPY target/CoCoMarket-0.0.1.jar app.jar
+ADD target/CoCoMarket-0.0.1.jar app.jar
 
 # Exécutez l'application Spring Boot au démarrage
- CMD ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "/app.jar"]
