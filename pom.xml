@@ -112,10 +112,7 @@
             <artifactId>jjwt-jackson</artifactId>
             <version>0.11.5</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
@@ -173,10 +170,7 @@
             <artifactId>gson</artifactId>
             <version>2.8.9</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
+
         <!--^^^^ Hamza_Sbai ^^^^-->
 
         <!--SI Cherif -->
@@ -192,21 +186,19 @@
             <version>2.0.27</version>
         </dependency>
 
+
         <!--^^^^ SI Cherif ^^^^-->
     </dependencies>
-
-    <!-- Deploy to  Nexus -->
+    <!-- Deploy to Nexus -->
     <distributionManagement>
-    <repository>
-    <id>deploymentRepo</id>
-<<<<<<< HEAD
-    <name>Nexus Repository</name><url>http://192.168.1.34:8081/repository/maven-releases/</url>
-=======
-    <name>Nexus Repository</name>
-    <url>http://192.168.1.34:8081/repository/maven-releases/</url>
->>>>>>> 44094135f3c98227442267ad422e1706c12bf37b
-    </repository>
-</distributionManagement>
+        <repository>
+            <id>deploymentRepo</id>
+            <name>Nexus Repository</name>
+            <url>http://localhost:8081/repository/maven-releases/</url>
+        </repository>
+    </distributionManagement>
+
+
     <build>
         <plugins>
             <plugin>
