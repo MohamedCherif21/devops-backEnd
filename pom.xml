@@ -10,12 +10,11 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>CoCoMarket</artifactId>
-    <version>1.0</version>
+    <version>0.0.1</version>
     <name>CoCoMarket</name>
     <description>CoCoMarket</description>
     <properties>
         <java.version>1.8</java.version>
-        <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
     </properties>
     <dependencies>
         <dependency>
@@ -190,6 +189,14 @@
 
         <!--^^^^ SI Cherif ^^^^-->
     </dependencies>
+    <!-- Deploy to Nexus -->
+    <distributionManagement>
+        <repository>
+            <id>deploymentRepo</id>
+            <name>Nexus Repository</name>
+            <url>http://localhost:8081/repository/maven-releases/</url>
+        </repository>
+    </distributionManagement>
 
 
     <build>
@@ -208,13 +215,5 @@
             </plugin>
         </plugins>
     </build>
-    <!-- Deploy to Nexus -->
-    <distributionManagement>
-        <repository>
-            <id>deploymentRepo</id>
-            <name>Nexus Repository</name>
-            <url>http://localhost:8081/repository/maven-releases/</url>
-        </repository>
-    </distributionManagement>
 
 </project>
