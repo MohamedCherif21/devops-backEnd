@@ -15,12 +15,22 @@ pipeline {
                 sh "mvn package"
             }
         }
-/*
-    stage ("Mvn test"){
-        steps{
-                sh "mvn test"
+
+
+
+
+
+
+        stage("SonarQube ") {
+            steps {
+              withSonarQubeEnv('SonarQube') {
+                sh 'mvn clean -DskipTests package sonar:sonar'
+              }
             }
-        }
+    }
+    
+/*
+
 
     stage ("Sonar Cube"){
         steps{
