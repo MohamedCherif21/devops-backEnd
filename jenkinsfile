@@ -30,7 +30,38 @@ pipeline {
     }
 
 
+ stage("NEXUS") {
+			steps {
+						sh 'mvn clean deploy -DskipTests'
+          }
+        }
 
+
+
+     stage('Docker login') {
+      steps {
+         sh 'echo "Docker login is processing ...."'
+        sh 'docker login --username ${khaledbouchrika829} --password ${213JMT7734}'
+
+      }
+    }
+
+
+    stage('Docker build image') {
+      steps {
+         sh 'echo "Docker build image is processing ...."'
+        sh 'docker build -t khaled/gestionski .'
+      }
+    }
+
+
+    stage('Docker push') {
+      steps {
+         sh 'echo "Docker push is processing ...."'
+        sh 'docker push ${khaledbouchrika829}/gestionski'
+
+      }
+    }
     
 
 /*
@@ -52,8 +83,8 @@ pipeline {
             }
         }
 
-*/
 
+        
     stage ("Nexus"){
         steps{
 			nexusArtifactUploader artifacts: [[artifactId: 'achat', classifier: 'debug', file: 'target/achat-1.0.jar', type: 'jar']], credentialsId: 'nexus', groupId: 'tn.esprit.rh', nexusUrl: '192.168.43.53:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-releases', version: '1.0'
@@ -86,6 +117,6 @@ pipeline {
                   sh "docker-compose -f docker-compose.yml up -d  "
               }
             }
-
+*/
 }
 }
