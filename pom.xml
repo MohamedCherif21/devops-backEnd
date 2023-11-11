@@ -86,7 +86,6 @@
             <artifactId>json</artifactId>
             <version>20210307</version>
         </dependency>
-        <!--Amir -->
         <dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity</artifactId>
@@ -127,8 +126,7 @@
             <artifactId>thumbnailator</artifactId>
             <version>0.4.13</version>
         </dependency>
-        <!--^^^^ Amir ^^^^-->
-        <!--Snoussi -->
+
 
         <dependency>
             <groupId>com.google.zxing</groupId>
@@ -154,8 +152,6 @@
         </dependency>
 
 
-        <!--^^^^ Snoussi ^^^^-->
-        <!--Hamza_Sbai-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
@@ -171,9 +167,7 @@
             <version>2.8.9</version>
         </dependency>
 
-        <!--^^^^ Hamza_Sbai ^^^^-->
 
-        <!--SI Cherif -->
         <dependency>
             <groupId>com.stripe</groupId>
             <artifactId>stripe-java</artifactId>
@@ -187,7 +181,6 @@
         </dependency>
 
 
-        <!--^^^^ SI Cherif ^^^^-->
     </dependencies>
     <!-- Deploy to Nexus -->
     <distributionManagement>
