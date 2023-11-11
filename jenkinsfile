@@ -29,6 +29,10 @@ pipeline {
             }
     }
 
+
+
+    
+
 /*
 
 
@@ -47,6 +51,9 @@ pipeline {
              }
             }
         }
+
+*/
+
     stage ("Nexus"){
         steps{
 			nexusArtifactUploader artifacts: [[artifactId: 'achat', classifier: 'debug', file: 'target/achat-1.0.jar', type: 'jar']], credentialsId: 'nexus', groupId: 'tn.esprit.rh', nexusUrl: '192.168.43.53:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-releases', version: '1.0'
@@ -79,6 +86,6 @@ pipeline {
                   sh "docker-compose -f docker-compose.yml up -d  "
               }
             }
-*/
+
 }
 }
