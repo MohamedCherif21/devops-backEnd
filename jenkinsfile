@@ -16,13 +16,21 @@ pipeline {
             }
         }
 
+
+
+     stage('Docker login') {
+      steps {
+         sh 'echo "Docker login is processing ...."'
+        sh 'docker login --username khaledbouchrika829 --password 213JMT7734'
+
+      }
+    }
     stage('Docker build image') {
       steps {
          sh 'echo "Docker build image is processing ...."'
         sh 'docker build -t khaled/gestionski .'
       }
     }
-
 
 /*
 
