@@ -1,0 +1,73 @@
+pipeline {
+    agent any
+  
+
+    stages{
+        
+    stage ("Mvn Clean"){
+        steps{
+                sh "mvn clean"
+            }
+    }
+
+    stage ("Mvn Package"){
+        steps{
+                sh "mvn package"
+            }
+        }
+/*
+    stage ("Mvn test"){
+        steps{
+                sh "mvn test"
+            }
+        }
+
+    stage ("Sonar Cube"){
+        steps{
+             withSonarQubeEnv(installationName: 'sq1'){
+            sh """
+                        mvn sonar:sonar \
+			-D sonar.login=admin \
+                        -D sonar.password=azerty \
+			-D sonar.projectKey=org.springframework.boot \
+                        
+                    """
+            
+            
+             }
+            }
+        }/*
+    stage ("Nexus"){
+        steps{
+			nexusArtifactUploader artifacts: [[artifactId: 'achat', classifier: 'debug', file: 'target/achat-1.0.jar', type: 'jar']], credentialsId: 'nexus', groupId: 'tn.esprit.rh', nexusUrl: '192.168.43.53:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-releases', version: '1.0'
+			}
+		}
+		   stage('Docker build')
+        {
+            steps {
+                 sh 'docker build -t   .'
+            }
+        }
+      
+
+        
+        stage('Docker login')
+        {
+            steps {
+                sh 'echo $dockerhub_PSW | docker login -u  -p '
+            }    
+       
+        }
+      stage('Push') {
+
+            steps {
+                sh 'docker push  '
+                }
+            }
+        stage('Run app With DockerCompose') {
+              steps {
+                  sh "docker-compose -f docker-compose.yml up -d  "
+              }
+            }
+
+}
