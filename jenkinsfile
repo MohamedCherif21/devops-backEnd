@@ -16,7 +16,18 @@ pipeline {
             }
         }
 
-
+    stage("SonarQube ") {
+            steps {
+              withSonarQubeEnv('SonarQube') {
+                sh 'mvn clean -DskipTests package sonar:sonar'
+              }
+            }
+    }
+     stage("NEXUS") {
+			steps {
+						sh 'mvn clean deploy -DskipTests'
+          }
+        }
 
      stage('Docker login') {
       steps {
@@ -29,6 +40,13 @@ pipeline {
       steps {
          sh 'echo "Docker build image is processing ...."'
         sh 'docker build -t khaled/gestionski .'
+      }
+    }
+    stage('Docker push') {
+      steps {
+         sh 'echo "Docker push is processing ...."'
+        sh 'docker push khaledbouchrika829/gestionski'
+
       }
     }
 
