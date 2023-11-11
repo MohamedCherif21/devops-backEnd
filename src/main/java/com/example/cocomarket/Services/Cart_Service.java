@@ -2,7 +2,6 @@ package com.example.cocomarket.Services;
 
 import com.example.cocomarket.Entity.CART;
 import com.example.cocomarket.Entity.Produit;
-import com.example.cocomarket.Entity.ProduitQuantiteDTO;
 import com.example.cocomarket.Entity.Produit_Cart;
 import com.example.cocomarket.Interfaces.ICart;
 import com.example.cocomarket.Repository.Cart_Repository;
@@ -28,10 +27,6 @@ public class Cart_Service implements ICart {
     @Autowired
     static
     Produit_Cart_repository pcr;
-
-    /*@Autowired
-    private APIContext apiContext ;*/
-
 
     @Override
     public CART Add_Product_To_Cart(Integer idProduit, Integer idCart) {
@@ -122,12 +117,6 @@ public class Cart_Service implements ICart {
         return null ;
     }
 
-   /* public Produit retrive_one_Product(Integer idProduit) {
-        Produit_Cart produit_cart = pcr.findById(idProduit).get();
-        Produit product = produit_cart.getProduit();
-        return product;
-    }*/
-
     @Override
     public List<Produit> retrieveAllProductInCart(Integer cartId) {
         Optional<CART> cartOptional = cr.findById(cartId);
@@ -141,31 +130,6 @@ public class Cart_Service implements ICart {
         }
         return produits;
     }
-
-   /* public Map<Integer, Integer> getProductQuantitiesByCartId1(Integer cartId) {
-        List<Produit_Cart> productCarts = pcr.findById(cartId);
-        Map<Integer, Integer> productQuantities = new HashMap<>();
-        for (Produit_Cart productCart : productCarts) {
-            productQuantities.put(productCart.getProduit().getId(), productCart.getQuantity());
-        }
-        return productQuantities;
-    }
-
-
-    public static Map<Integer, Integer> getProductQuantitiesByCartId(Integer cartId) {
-        Optional<Produit_Cart> optionalProductCarts = pcr.findById(cartId);
-        if (optionalProductCarts.isPresent()) {
-            List<Produit_Cart> productCarts = (List<Produit_Cart>) optionalProductCarts.get();
-            Map<Integer, Integer> productQuantities = new HashMap<>();
-            for (Produit_Cart productCart : productCarts) {
-                productQuantities.put(productCart.getProduit().getId(), productCart.getQuantity());
-            }
-            return productQuantities;
-        } else {
-            // Le panier n'a aucun produit
-            return Collections.emptyMap();
-        }
-    }*/
 
     public static Map<Integer, Integer> getProductQuantitiesByCartId(Integer cartId) {
         Optional<Produit_Cart> optionalProductCarts = pcr.findById(cartId);

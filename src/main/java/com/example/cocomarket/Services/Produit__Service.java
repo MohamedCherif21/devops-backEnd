@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class Produit__Service implements IProduit {
@@ -72,9 +71,6 @@ public class Produit__Service implements IProduit {
 
         Produit produit = prorepo.findById(idProduit).orElse(null) ;
         Raiting_Product R = raitingProduitrepo.findById(idrainting).orElse(null) ;
-        //produit.getRaiting_products().add(R) ;
-        System.out.println("♦♦♦♦♦♦♦♦♦♦"+R);
-        System.out.println("♦♦♦♦♦♦♦♦♦♦"+produit);
         produit.getRaiting_products().add(R) ;
         prorepo.save(produit) ;
 
@@ -97,12 +93,7 @@ public class Produit__Service implements IProduit {
         for(Raiting_Product i:p.getRaiting_products()){
             a+=i.getScore();
         }
-        System.out.println("♦♦♦♦♦♦♦♦♦♦"+b);
-
         if ( a>b )
-
-
-
             return ("Produit 1 Better than B " )
                     ;
         else
@@ -124,44 +115,4 @@ public class Produit__Service implements IProduit {
         return p2;
 
     }
-
-
-
-
-/*
-    @Override
-    public Set<Produit> RetriveAllProd() {
-        List<Produit> Produits =  prorepo.findAll();
-        Set<Produit> Produit1 = new HashSet<>();
-
-        for (Produit s: Produits){
-            for (Raiting_Product Raite:  s.getRaiting_products()) {
-                if ( s.getRaiting_products().size() !=0 && Raite.getId()== ){
-            float moy = prorepo.
-
-                }
-            }
-        }*/
-      /*  public List<Produit> getProduits() {
-            List<Produit> produits = announcementRepository.retrieveAnnouncements();
-            List<Announcement> announcements1 = new ArrayList<>();
-            for (Announcement a: announcements) {
-                if(announcementRepository.retrieveRatings(a.getId_announcement()).size() != 0)
-                    float moy = announcementRepository.retrieveSumRatings(a.getId_announcement())/announcementRepository.retrieveRatings(a.getId_announcement()).size();
-                a.setRatmoyenne(moy); announcementRepository.save(a);
-            }else
-            {a.setRatmoyenne(0);
-                announcementRepository.save(a);
-                //    if(a.getBoosted()) announcements1.add(0,a);
-            } else  announcements1.add(a);
-        }
-        return announcements1;
-
-    }
-
-
-        return
-        Shoprepo.findAll();*/
-
-
 }

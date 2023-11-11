@@ -54,9 +54,7 @@ public class CataloguePDFExport {
             table.addCell(user.getDescription());
             table.addCell(user.getNom());
             table.addCell(user.getProduits().toString());
-            table.addCell(user.getImg().toString());
-
-         //   table.addCell();
+            table.addCell(user.getImg());
 
         }
     }
@@ -71,7 +69,7 @@ public class CataloguePDFExport {
         font.setColor(Color.BLUE);
 
         Paragraph p = new Paragraph("List of Contrat", font);
-        p.setAlignment(Paragraph.ALIGN_CENTER);
+        p.setAlignment(Element.ALIGN_CENTER);
 
         document.add(p);
 

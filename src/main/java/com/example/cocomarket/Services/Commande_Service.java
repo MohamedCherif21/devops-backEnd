@@ -5,7 +5,6 @@ import com.example.cocomarket.Interfaces.ICommande;
 import com.example.cocomarket.Repository.*;
 import com.example.cocomarket.config.EmailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
@@ -15,7 +14,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class Commande_Service implements ICommande {
@@ -44,7 +42,8 @@ public class Commande_Service implements ICommande {
     public Livraison affectercamandtolivaison(String Region,Livraison l) {
         List<Commande> c=cr.getnotaffectedCommand(Region);
         LocalDate d;
-        float x=0,y=0;
+        float x=0;
+        float y=0;
         for (Commande i:c)
         {
             x+=i.getSomme_volume();
@@ -79,7 +78,6 @@ public class Commande_Service implements ICommande {
         commande.setTotal_price(cart.getTotal_price()+commande.getTax()*((100-produit.getPourcentagePromotion())/100));
         commande.setTotal_weight(cart.getTotal_weight());
         commande.setBuyer_email(cart.getUser().getEmail());
-       // commande.setShop_address(produit.getShopes().getAdresse());
         commande.setNbProd(cart.getNbProd());
         commande.setEtat(Etat.EDITABLE);
         commande.setPayment_mode(Payment_Mode.TRANSFER);
@@ -147,21 +145,27 @@ public class Commande_Service implements ICommande {
     }
 
     @Override
-    public void Accepter_commande(Integer idcommande){
-        // Commande commande = cr.traiterCommand();
+    public void Accepter_commande(Integer idcommande) {
         Commande cmd = cr.findById(idcommande).orElse(null);
-        cmd.setEtat(Etat.VALIDATED);
-        cr.save(cmd);
+        if (cmd != null) {
+            cmd.setEtat(Etat.VALIDATED);
+            cr.save(cmd);
+        } else {
+
+            System.out.println("Command fount with ID: " + idcommande);
+        }
     }
+
 
     @Override
     public void Refuser_commande(Integer idcommande) {
-        //Commande commande = cr.traiterCommand();
         Commande cmd = cr.findById(idcommande).orElse(null);
-        //refuser
-        //send mail avec motif de refus
+        if (cmd != null) {
         cmd.setEtat(Etat.REFUSED);
         cr.save(cmd);
+        } else {
+            System.out.println("Command not found for ID: " + idcommande);
+        }
     }
 
 
@@ -184,14 +188,20 @@ public class Commande_Service implements ICommande {
     }
 
 
-    public String findCartIdWith3Orders(){
+    public String findCartIdWith3Orders() {
         Integer idcart = cr.thewinneroftheyear();
         CART cart = car.findById(idcart).orElse(null);
-        System.out.println("Result SQl :"+idcart);
-        return cart.getUser().getEmail() ;
+
+        if (cart != null) {
+            System.out.println("Result SQL: " + idcart);
+            return cart.getUser().getEmail();
+        } else {
+            System.out.println("Cart not found for ID: " + idcart);
+            return null; // Or handle this case according to your requirements
+        }
     }
 
-    // @Scheduled(cron = "0 0 0 * * ?")
+
     public void envoyerCouponPanier3Commandes() {
         // Récupérer l'email du client qui a effectué 3 commandes
         String email = findCartIdWith3Orders();
@@ -204,12 +214,10 @@ public class Commande_Service implements ICommande {
             int index = (int) (Math.random() * characters.length());
             code.append(characters.charAt(index));
         }
-        // Créer un nouvel objet Coupon avec le code généré
         Coupon coupon = new Coupon();
         coupon.setCode(code.toString());
         coupon.setUsed(false);
         coupon.setDiscount(0.1);
-        // Enregistrer le coupon dans la base de données
         couponRepository.save(coupon);
 
         // Envoyer un email contenant le code généré
@@ -221,14 +229,23 @@ public class Commande_Service implements ICommande {
     @Override
     public void Annuler_Commande(Integer idCommande) {
         Commande commande = cr.findById(idCommande).orElse(null);
-        LocalDateTime currentTimeNow = LocalDateTime.now();
-        LocalDateTime Limite = commande.getDateCmd().plusMinutes(300);
-        if (currentTimeNow.isBefore(Limite) && commande.getEtat()!=Etat.VALIDATED) {
-            cr.delete(commande);
+
+        if (commande != null) {
+            LocalDateTime currentTimeNow = LocalDateTime.now();
+            LocalDateTime Limite = commande.getDateCmd().plusMinutes(300);
+
+            if (currentTimeNow.isBefore(Limite) && commande.getEtat() != Etat.VALIDATED) {
+                cr.delete(commande);
+            } else {
+                throw new RuntimeException("La commande ne peut plus être annulée.");
+            }
         } else {
-            throw new RuntimeException("La commande ne peut plus être annulée.");
+
+            System.out.println("Command not found for ID: " + idCommande);
+
         }
     }
+
 
 
 }

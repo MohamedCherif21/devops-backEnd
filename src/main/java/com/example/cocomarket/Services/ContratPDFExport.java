@@ -55,9 +55,6 @@ public class ContratPDFExport {
             table.addCell(user.getDateFinContrat().toString());
             table.addCell(user.getDateDebutContrat().toString());
             table.addCell(user.getCommision().toString());
-
-         //   table.addCell();
-
         }
     }
 
@@ -71,7 +68,7 @@ public class ContratPDFExport {
         font.setColor(Color.BLUE);
 
         Paragraph p = new Paragraph("List of Contrat", font);
-        p.setAlignment(Paragraph.ALIGN_CENTER);
+        p.setAlignment(Element.ALIGN_CENTER);
 
         document.add(p);
 

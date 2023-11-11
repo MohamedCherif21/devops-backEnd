@@ -7,16 +7,9 @@ import com.example.cocomarket.Repository.Catalogue_Repository;
 import com.example.cocomarket.Repository.Produit__Repository;
 import com.example.cocomarket.Repository.User_Repository;
 import com.example.cocomarket.config.EmailSenderService;
-import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-
-
-import org.apache.naming.factory.SendMailFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,19 +40,16 @@ public class Catalogue_Service implements ICatalogue {
         return catalogueRepository.findById(id);
     }
 
-    public Catalogue addCatalogue(Catalogue catalogue) throws IOException, WriterException, com.google.zxing.WriterException {
+    public Catalogue addCatalogue(Catalogue catalogue) throws IOException, com.google.zxing.WriterException {
         catalogue = catalogueRepository.save(catalogue);
         byte[] qrCode = generateQRCode(catalogue);
         catalogue.setQrCode(qrCode);
         return catalogueRepository.save(catalogue);
     }
 
-    public byte[] generateQRCode(Catalogue catalogue) throws WriterException, IOException, com.google.zxing.WriterException {
+    public byte[] generateQRCode(Catalogue catalogue) throws  IOException, com.google.zxing.WriterException {
         int width = 256;
         int height = 256;
-        String charset = "UTF-8";
-        int margin = 1;
-
         String data = "catalogue:" + catalogue.getId();
 
         QRCodeWriter writer = new QRCodeWriter();
@@ -120,12 +110,7 @@ public class Catalogue_Service implements ICatalogue {
 
         Set<Produit> produits = new HashSet<>(top50Produits);
         catalogue.setProduits(produits);
-
         senderService.sendSimpleEmail("hamza.amdouni@esprit.tn","kjnjkn","kjjkhjk");
-
-
-        /*byte[] qrCode = generateQRCode(catalogue);
-        catalogue.setQrCode(qrCode);*/
         return catalogueRepository.save(catalogue);
     }
 
@@ -146,10 +131,6 @@ public class Catalogue_Service implements ICatalogue {
         topRatedProductsCatalogue.setDescription("Catalogue contenant les 5 produits les plus notés.");
         topRatedProductsCatalogue.setImg("https://example.com/top-rated-products.png");
         topRatedProductsCatalogue.setProduits(new HashSet<>(topRatedProducts));
-
-       /* byte[] qrCode = generateQRCode(topRatedProductsCatalogue);
-        topRatedProductsCatalogue.setQrCode(qrCode);
-        // Enregistrer le catalogue dans la base de données*/
         catalogueRepository.save(topRatedProductsCatalogue);
     }
 
@@ -171,9 +152,6 @@ public class Catalogue_Service implements ICatalogue {
         List<Produit> latestProducts = produitRepository.findTop10ByOrderByDatePublicationDesc();
         catalogue.setProduits(new HashSet<>(latestProducts));
 
-
-        /*byte[] qrCode = generateQRCode(catalogue);
-        catalogue.setQrCode(qrCode);*/
 
         return catalogueRepository.save(catalogue);
 
