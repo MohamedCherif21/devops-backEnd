@@ -16,55 +16,13 @@ pipeline {
             }
         }
 
-
-
-
-
-
-
-
-
-    stage('Docker login') {
-        steps {
-            sh 'echo "Docker login is processing ...."'
-            sh 'docker login --username ${dockerhubusername} --password ${dockerhubpassword}'
-
-        }
-        }
-
-
     stage('Docker build image') {
-        steps {
-            sh 'echo "Docker build image is processing ...."'
-            sh 'docker build -t khaled/gestionski .'
-        }
-        }
+      steps {
+         sh 'echo "Docker build image is processing ...."'
+        sh 'docker build -t khaled/gestionski .'
+      }
+    }
 
-
-    stage('Docker push') {
-        steps {
-            sh 'echo "Docker push is processing ...."'
-            sh 'docker push ${username}/gestionski'
-
-        }
-        }
-
-
-    stage("SonarQube ") {
-        steps {
-            withSonarQubeEnv('SonarQube') {
-            sh 'mvn clean -DskipTests package sonar:sonar'
-            }
-        }
-}
-
-
-    stage("NEXUS") {
-                steps {
-                            sh 'mvn clean deploy -DskipTests'
-            }
-            }
-    
 
 /*
 
