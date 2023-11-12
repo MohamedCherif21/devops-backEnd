@@ -46,18 +46,8 @@ public class AuthenticationService {
 
 
         Set<Autority> auths=  user.getAutority();
-
-        //   System.out.println("User A AJouter : "+user );
-   /* var user = User.builder()
-        .firstname(request.getFirstname())
-        .lastname(request.getLastname())
-        .email(request.getEmail())
-        .password(passwordEncoder.encode(request.getPassword()))
-        .autority(naa)//autority(na)
-        .build();*/
         String filename = StringUtils.cleanPath(image.getOriginalFilename());
         if(filename.contains("..")){
-            System.out.println("!!! Not a valid File");
         }
         user.setImg(Base64.getEncoder().encodeToString(image.getBytes()));
         user.setPassword( passwordEncoder.encode(user.getPassword()));
@@ -85,10 +75,6 @@ public class AuthenticationService {
         User userExicte=repository.findById(user.getId()).orElse(null);//real object-->save()
 
         if (image !=null){
-            String filename = StringUtils.cleanPath(image.getOriginalFilename());
-            if(filename.contains("..")){
-                System.out.println("!!! Not a valid File");
-            }
             user.setImg(Base64.getEncoder().encodeToString(image.getBytes()));
             userExicte.setImg(user.getImg());}
 
@@ -98,7 +84,6 @@ public class AuthenticationService {
         userExicte.setRegion(user.getRegion());
         userExicte.setNum_phone(user.getNum_phone());
         userExicte.setAssosiation_info(user.getAssosiation_info());
-        // userExicte.set(user.getLast_name());
 
         repository.save(userExicte);
         return "Updated";
@@ -107,22 +92,19 @@ public class AuthenticationService {
 
     public JwtResponse authenticate(AuthenticationRequest request) {
         User u= repository.FoundAcountBYMail(request.getEmail());
-        System.out.println("User mail :"+u.getEmail());
         if (u != null  ){
             if (! passwordEncoder.matches(request.getPassword() , u.getPassword()  ) && u.getNbr_tentatives()< 5){
-                System.out.println("Rahi lpassword Ghalta");
-                System.out.println("Tentative_Numbger :"+u.getNbr_tentatives());
+
                 u.setNbr_tentatives(u.getNbr_tentatives()+1);
                 repository.save(u);
-                System.out.println("I finish Adding");
+
                 if(u.getNbr_tentatives() >= 5){
-                    System.out.println("Try to Change True");
+
                     u.setEnabled(Boolean.TRUE);
                     u.setSleep_time(new Date(System.currentTimeMillis()));
                     repository.save(u);
                 }
             }else if(passwordEncoder.matches(request.getPassword() , u.getPassword()  ) && u.getNbr_tentatives()< 5) {
-                System.out.println("◓◓  ALL GOOD Password And Adresse   ◓◓ !!");
                 authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(
                                 request.getEmail(),
@@ -132,7 +114,6 @@ public class AuthenticationService {
 
                 var user = repository.findByEmail(request.getEmail())
                         .orElseThrow(() -> new RuntimeException("I Cant found this User- "));
-                System.out.println("Hello 2!!");
 
                 List<GrantedAuthority> authorities = getAuthorities(user.getAuthFromBase());
                 var jwtToken = jwtService.generateToken(user);
@@ -149,7 +130,6 @@ public class AuthenticationService {
             }
 
         }
-        System.out.println("Password Or Email Incorrect ");
         return  new JwtResponse(null, null,"  Password Or Email Incorrect !!");
 
 

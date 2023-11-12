@@ -37,24 +37,6 @@ public class Shop_Service implements IShop {
 
     @Override
     public Shop AddNewshop(Shop shp ) {
-/*
-        QRCodeWriter qrCodeWriter = new QRCodeWriter();
-        BitMatrix bitMatrix = qrCodeWriter.encode(url, BarcodeFormat.QR_CODE, 250, 250);
-        MatrixToImageWriter.toBufferedImage(bitMatrix);
-        shp.setUrl(url);
-
-int width ;
-        QRCodeWriter qrCodeWriter = new QRCodeWriter();
-        BitMatrix bitMatrix = qrCodeWriter(url, BarcodeFormat.QR_CODE, 250, 250);
-        ByteArrayOutputStream pngOutputStream =
-                new ByteArrayOutputStream();
-        MatrixToImageConfig con =
-                new MatrixToImageConfig(0xFF000002, 0xFF04B4AE);
-        MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream, con);
-        byte[] pngData = pngOutputStream.toByteArray();
-
-        return pngData;
-        */
         return Shoprepo.save(shp);
     }
 
@@ -64,9 +46,6 @@ int width ;
 
         Shop shop = Shoprepo.findById(idshop).orElse(null) ;
         Contrat c = contratrepo.findById(idcontrat).orElse(null) ;
-        //produit.getRaiting_products().add(R) ;
-        System.out.println("♦♦♦♦♦♦♦♦♦♦"+c);
-        System.out.println("♦♦♦♦♦♦♦♦♦♦"+shop);
         shop.setContrat_shop(c);  ;
         Shoprepo.save(shop) ;
 

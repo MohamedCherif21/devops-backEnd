@@ -101,7 +101,6 @@ public class Produit__Service implements IProduit {
 
     }
 
-    ////////
     public List<Produit> Recomendation(Integer idproduit , Integer idCateg ) {
         List<Produit> p= prorepo.findAll();
         List<Produit> p2 = new ArrayList<>();

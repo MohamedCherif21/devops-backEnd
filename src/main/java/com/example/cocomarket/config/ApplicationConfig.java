@@ -47,7 +47,7 @@ public class ApplicationConfig {
 
       @Override
       public void deleteResponse(Integer id) {
-
+//khjgfd
       }
     };
   }

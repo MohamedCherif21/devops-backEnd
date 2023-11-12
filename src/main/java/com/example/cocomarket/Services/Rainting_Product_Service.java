@@ -21,31 +21,6 @@ public class Rainting_Product_Service implements IRainting_Product {
         String output = Myfilter.getCensoredText(Rp.getFeedBack());
         System.out.println(output);
         Rp.setFeedBack(output);
-       /* if (output.equals(null)!=true){
-            System.out.println("A bad word is detected");
-        }
-        //System.out.println("***********"+Rp);*/
-
         return raitingProduitrepo.save(Rp);
     }
-
-  /*  @Override
-    public int sumProduit(Integer id1) {
-
-         Set<Raiting_Product> rating = raitingProduitrepo.sumRaiting(id1) ;
-        int a = 0 ;
-      //  int b = 0 ;
-        for ( Raiting_Product i : rating)
-        {
-            a =a+  i.getScore() ;
-          //  b+=i.getScore() ;
-
-        }
-        return a ;
-    }*/
-
-
-
-
-
 }

@@ -46,14 +46,11 @@ public class StripeController {
                                                     @RequestParam("token") String token ,HttpServletResponse response) throws StripeException, IOException {
         Commande order = cr.findById(commandeId).get();
         stripeService.effectuerPaiement(order.getTotal_price(), devise, token);
-        // System.out.println("paiement effectué avec succés, vous pouvez télécharger votre facture");
-        // création du document PDF
         Document document = new Document(PageSize.A4);
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PdfWriter.getInstance(document, out);
         document.open();
 
-        // ajouter les informations de la facture
         document.add(new Paragraph("Facture pour la commande #" + order.getId()));
         document.add(new Paragraph("Email client: " + order.getBuyer_email()));
         document.add(new Paragraph("Adresse client: " + order.getBuyer_address()));

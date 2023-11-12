@@ -19,13 +19,11 @@ public class Vehicule_Controller {
     Vehicule_Repository vr;
     @PostMapping("/add-Car")
     public Vehicule addCar(@RequestBody Vehicule l) {
-        Vehicule li = iv.addVehicule(l);
-        return li;
+        return iv.addVehicule(l);
     }
     @PutMapping("/update-Car")
     public Vehicule updateCar(@RequestBody Vehicule l) {
-        Vehicule li = iv.updateVehicule(l);
-        return li;
+        return iv.updateVehicule(l);
     }
     @DeleteMapping("/remove-Car/{Car-id}")
     public void removeLiv(@PathVariable("Car-id") Integer idc) {
@@ -34,13 +32,11 @@ public class Vehicule_Controller {
     @GetMapping("/retrieve-all-Cars")
     @PreAuthorize("hasAuthority('DELEVRY')")
     public List<Vehicule> getlivs() {
-        List<Vehicule> listLiv = iv.retrieveAllVehicule();
-        return listLiv;
+        return iv.retrieveAllVehicule();
     }
     @GetMapping("/retrieve-Liv/{Car-id}")
     public Vehicule getliv(@PathVariable("Car-id") Integer idc) {
-        Vehicule Liv = iv.findbyidVehicule(idc);
-        return Liv;
+        return iv.findbyidVehicule(idc);
     }
 
     @PutMapping("/assign-liv-car/{region}")
@@ -52,8 +48,7 @@ public class Vehicule_Controller {
 
     @GetMapping("/retrieve-Liv-available/{region}")
     public Vehicule getliv(@PathVariable("region") String region) {
-       Vehicule Liv = iv.availablecar(region);
-        return Liv;
+        return iv.availablecar(region);
     }
 
     @PutMapping("/validate-liv-car/{id}")
@@ -62,12 +57,11 @@ public class Vehicule_Controller {
         iv.validatemission(id);
     }
     @GetMapping("/getliv-byid/{id}")
-    public List<Livraison>getLiv(@PathVariable("id") Integer id){
+    public List<Livraison>getLivraison(@PathVariable("id") Integer id){
         List<Livraison> l ;
         Vehicule v=vr.getusertovalidate(id);
 
-        List<Livraison> lv= v.getLiv_car();
-        return  lv;
+        return v.getLiv_car();
     }
 
 }

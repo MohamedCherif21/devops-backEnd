@@ -7,11 +7,9 @@ import com.example.cocomarket.Repository.User_Repository;
 import com.example.cocomarket.config.EmailSenderService;
 import com.example.cocomarket.config.JwtService;
 import com.example.cocomarket.token.TokenRepository;
-//import lombok.RequiredArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -55,14 +53,9 @@ public class AuthenticationController {
   @GetMapping("/SendMailForgetPswd/{mail}")
   //@PreAuthorize("hasAuthority('ADMIN')")
   public String SendMail(@PathVariable String mail){
-    this.CodeRecived=getRandomNumberString();
-    //  System.out.println("Email lbch nab3ethlou :"+ UserRepo.findByEmail(mail));
-//   if (UserRepo.findByEmail(mail) != null){
     service.sendSimpleEmail(mail,"This Is the code :"+ this.CodeRecived,"Security Alert ");
     return "Email receved";
-    //}
-    // else
-    //   return "-______-  ' Email of this account Not Existe '   -_______-";
+
   }
 
   @GetMapping("/Verifier/{mail}/{code}/{newPsw}")
@@ -78,7 +71,6 @@ public class AuthenticationController {
       u.setPassword( passwordEncoder.encode(newPsw));
 
       UserRepo.save(u);
-      this.CodeRecived="No Code";
       return "Code Correct Password has been Update Succeful";
     }
     else
@@ -86,17 +78,13 @@ public class AuthenticationController {
   }
   @GetMapping("/VerifierCode/{code}")
   public boolean coparison(@PathVariable String code){
-    if (this.CodeRecived.compareTo(code) == 0 )
+    if (CodeRecived.compareTo(code) == 0 )
       return true;
     return false;
   }
+  public static Random random = new Random();
   public static String getRandomNumberString() {
-    // It will generate 6 digit random Number.
-    // from 0 to 999999
-    Random rnd = new Random();
-    int number = rnd.nextInt(999999);
-
-    // this will convert any number sequence into 6 character.
+    int number = random.nextInt(999999);
     return String.format("%06d", number);
   }
   //---------------------------------------
@@ -114,7 +102,6 @@ public class AuthenticationController {
   @GetMapping("/GetConnectedUserNow")
   public List<User> GetConnectedNow(){
     List<Integer> TokenMriglin=tokenRepo.retrieveIdUserConecter();
-    Date d = new Date(System.currentTimeMillis());
     List<User> userconnects=new ArrayList<>();
     for (Integer T : TokenMriglin){
       userconnects.add(UserRepo.findById(T).orElse(null));
@@ -129,7 +116,6 @@ public class AuthenticationController {
   @GetMapping("/GetConnectedUserNowWithRole/{role}")
   public List<User> GetConnectedRole(@PathVariable String role){
     List<Integer> TokenMriglin=tokenRepo.retrieveIdUserConecter();
-    Date d = new Date(System.currentTimeMillis());
     List<User> userconnects=new ArrayList<>();
     List<User> userconnectswithRole=new ArrayList<>();
     for (Integer T : TokenMriglin){

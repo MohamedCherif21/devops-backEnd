@@ -89,8 +89,7 @@ public class SnoussiController {
         byte[] qrCode = byteArrayOutputStream.toByteArray();
         // Ajouter le QR code au shop et enregistrer le shop dans la base de données
         shp.setQrCodeShop(qrCode);
-        Shop shop = shopinterface.AddNewshop(shp);
-        return shop;
+        return shopinterface.AddNewshop(shp);
     }
 
 
@@ -98,8 +97,7 @@ public class SnoussiController {
     @PostMapping("/add-Categorie")
     public Categorie AddnewCategorie(@RequestBody Categorie cat) {
         categorieinterface.AddSubnewCategorie(cat);
-        Categorie categorie = categorieinterface.AddnewCategorie(cat);
-        return categorie;
+        return categorieinterface.AddnewCategorie(cat);
     }
     public SnoussiController(Produit__Repository produit__repository) {
         this.produit__repository = produit__repository;
@@ -137,23 +135,6 @@ public class SnoussiController {
 
 
     private final Produit__Repository produit__repository;
-
-
-
-    /*   @GetMapping("/recherche")
-       public ResponseEntity<List<Produit>> searchForProduit(@SearchSpec Specification<Produit> specs) {
-           return new ResponseEntity<>(produit__repository.findAll(Specification.where(specs)), HttpStatus.OK);
-       }
-   */
-   /* @GetMapping(path = "/getqrcode", produces = MediaType.IMAGE_PNG_VALUE)
-    public BufferedImage generateQRCodeImage(@RequestParam String url) throws Exception {
-//QRcode generator logic
-        QRCodeWriter qrCodeWriter = new QRCodeWriter();
-        BitMatrix bitMatrix = qrCodeWriter.encode(url, BarcodeFormat.QR_CODE, 250, 250);
-        return MatrixToImageWriter.toBufferedImage(bitMatrix);
-    }
-
-    */
     @GetMapping(path = "/generateQrCode/{shopId}", produces = MediaType.IMAGE_PNG_VALUE)
     public ResponseEntity<byte[]> generateQrCode(@PathVariable Integer shopId) throws Exception {
         String shopUrl = "https://votre-site-web.com/shop/" + shopId;
@@ -214,23 +195,6 @@ public class SnoussiController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(uploadImage);
     }
-    /*
-        @GetMapping(value = "/produits/{id}/image", produces = MediaType.IMAGE_PNG_VALUE)
-        @Produces(MediaType.IMAGE_PNG_VALUE)
-
-        public ResponseEntity<ByteArrayResource> getImageForProduit(@PathVariable Integer id) {
-            ImageData imageData = imagerepo.findByProduitId(id);
-            if (imageData == null) {
-                return ResponseEntity.notFound().build();
-            }
-
-            ByteArrayResource resource = new ByteArrayResource(imageData.getImageData());
-            return ResponseEntity.ok()
-                    .contentLength(imageData.getImageData().length)
-                    .header("Content-type", imageData.getType())
-                    .body(resource);
-        }
-    */
     @GetMapping(value = "/produits/{id}/image", produces = MediaType.IMAGE_PNG_VALUE)
     @ResponseBody
     public ResponseEntity<byte[]> getImageForProduit(@PathVariable Integer id) {

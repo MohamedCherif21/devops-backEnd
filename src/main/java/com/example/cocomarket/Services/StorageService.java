@@ -33,19 +33,9 @@ public class StorageService {
                 .name(file.getOriginalFilename())
                 .type(file.getContentType())
                 .imageData(ImageUtils.compressImage(file.getBytes())).build();
-
         if (imageData != null) {
-          /*  for(ImageData im:List){
-                im.setProduit(p);
-                repository.save(im);
-
-            }*/
             imageData.setProduit(p) ;
             repository.save(imageData) ;
-
-
-            //p.getImage().add(imageData);
-            // repoproduit.save(p) ;
             return "file uploaded successfully : " + file.getOriginalFilename();
         }
         return null ;
