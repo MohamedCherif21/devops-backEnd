@@ -55,7 +55,7 @@ public class AuthenticationController {
   @GetMapping("/SendMailForgetPswd/{mail}")
   //@PreAuthorize("hasAuthority('ADMIN')")
   public String SendMail(@PathVariable String mail){
-    this.CodeRecived=getRandomNumberString();
+    CodeRecived=getRandomNumberString();
     //  System.out.println("Email lbch nab3ethlou :"+ UserRepo.findByEmail(mail));
 //   if (UserRepo.findByEmail(mail) != null){
     service.sendSimpleEmail(mail,"This Is the code :"+ this.CodeRecived,"Security Alert ");

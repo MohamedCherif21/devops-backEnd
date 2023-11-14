@@ -189,15 +189,6 @@
 
         <!--^^^^ SI Cherif ^^^^-->
     </dependencies>
-    <!-- Deploy to Nexus -->
-    <distributionManagement>
-        <repository>
-            <id>deploymentRepo</id>
-            <name>Nexus Repository</name>
-            <url>http://localhost:8081/repository/maven-releases/</url>
-        </repository>
-    </distributionManagement>
-
 
     <build>
         <plugins>
@@ -215,11 +206,4 @@
             </plugin>
         </plugins>
     </build>
-<distributionManagement>
-		<repository>
-			<id>deploymentRepo</id>
-			<name>Nexus Repository</name>
-			<url>http://localhost:8081/repository/maven-releases/</url>
-		</repository>
-	</distributionManagement>
 </project>
