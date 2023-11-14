@@ -1,14 +1,11 @@
 package com.example.cocomarket.config;
 
-import com.example.cocomarket.Entity.Comentaire;
-import com.example.cocomarket.Interfaces.IComentaire;
-import com.example.cocomarket.Repository.User_Repository;
+import com.example.cocomarket.entity.Comentaire;
+import com.example.cocomarket.interfaces.IComentaire;
+import com.example.cocomarket.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -26,7 +23,7 @@ import java.util.Optional;
 public class ApplicationConfig {
 
 
-  private final User_Repository repository;
+  private final UserRepository repository;
   @Bean
   public IComentaire responseService(){
     return new IComentaire() {

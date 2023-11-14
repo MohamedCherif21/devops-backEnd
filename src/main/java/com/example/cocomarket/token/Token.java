@@ -1,6 +1,6 @@
 package com.example.cocomarket.token;
 
-import com.example.cocomarket.Entity.User;
+import com.example.cocomarket.entity.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

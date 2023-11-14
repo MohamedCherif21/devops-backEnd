@@ -1,6 +1,6 @@
 package com.example.cocomarket.auth;
 
-import com.example.cocomarket.Entity.User;
+import com.example.cocomarket.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,9 +1,9 @@
 package com.example.cocomarket.auth;
 
-import com.example.cocomarket.Entity.Autority;
-import com.example.cocomarket.Entity.User;
-import com.example.cocomarket.Repository.AuthorityRepository;
-import com.example.cocomarket.Repository.User_Repository;
+import com.example.cocomarket.entity.Autority;
+import com.example.cocomarket.entity.User;
+import com.example.cocomarket.repository.AuthorityRepository;
+import com.example.cocomarket.repository.UserRepository;
 import com.example.cocomarket.config.EmailSenderService;
 import com.example.cocomarket.config.JwtService;
 import com.example.cocomarket.token.TokenRepository;
@@ -28,7 +28,7 @@ public class AuthenticationController {
   private PasswordEncoder passwordEncoder;
   private static String CodeRecived;
   @Autowired
-  private User_Repository UserRepo;
+  private UserRepository UserRepo;
   @Autowired
   private EmailSenderService service;
 
@@ -66,7 +66,7 @@ public class AuthenticationController {
 
     if (this.CodeRecived.compareTo(code) == 0 ){
       User u= UserRepo.findByEmail(mail).get();
-      System.out.println("UserName ="+ u.getLast_name()  );
+      System.out.println("UserName ="+ u.getLastname()  );
 
       u.setPassword( passwordEncoder.encode(newPsw));
 
@@ -153,14 +153,14 @@ public class AuthenticationController {
 
     List<User> Users=UserRepo.findAll();
     for ( User u: Users)
-      if(u.getSleep_time() !=null) {
-        long elapsedms = Math.abs(d.getTime() - u.getSleep_time().getTime());
+      if(u.getSleeptime() !=null) {
+        long elapsedms = Math.abs(d.getTime() - u.getSleeptime().getTime());
         long diff = TimeUnit.MINUTES.convert(elapsedms, TimeUnit.MILLISECONDS);
         System.out.println("Diference  :" + diff);
         if (diff >= 30) {
           u.setEnabled(false);
-          u.setNbr_tentatives(0);
-          u.setSleep_time(null);
+          u.setNbrtentatives(0);
+          u.setSleeptime(null);
           UserRepo.save(u);
         }
       }

@@ -1,10 +1,10 @@
 package com.example.cocomarket.auth;
 
 
-import com.example.cocomarket.Entity.Autority;
-import com.example.cocomarket.Entity.User;
-import com.example.cocomarket.Repository.AuthorityRepository;
-import com.example.cocomarket.Repository.User_Repository;
+import com.example.cocomarket.entity.Autority;
+import com.example.cocomarket.entity.User;
+import com.example.cocomarket.repository.AuthorityRepository;
+import com.example.cocomarket.repository.UserRepository;
 import com.example.cocomarket.config.JwtService;
 import com.example.cocomarket.token.Token;
 import com.example.cocomarket.token.TokenRepository;
@@ -12,12 +12,9 @@ import com.example.cocomarket.token.TokenType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.var;
-import net.coobird.thumbnailator.Thumbnails;
-import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,7 +28,7 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
-  private final User_Repository repository;
+  private final UserRepository repository;
     private final AuthorityRepository Auhtropo;
   private final TokenRepository tokenRepository;
   private final PasswordEncoder passwordEncoder;
@@ -52,7 +49,7 @@ public class AuthenticationService {
         user.setImg(Base64.getEncoder().encodeToString(image.getBytes()));
         user.setPassword( passwordEncoder.encode(user.getPassword()));
 
-        user.setNbr_tentatives(0);
+        user.setNbrtentatives(0);
 
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
@@ -79,11 +76,11 @@ public class AuthenticationService {
             userExicte.setImg(user.getImg());}
 
         userExicte.setEmail(user.getEmail());
-        userExicte.setFirst_name(user.getFirst_name());
-        userExicte.setLast_name(user.getLast_name());
+        userExicte.setFirstname(user.getFirst_name());
+        userExicte.setLastname(user.getLast_name());
         userExicte.setRegion(user.getRegion());
-        userExicte.setNum_phone(user.getNum_phone());
-        userExicte.setAssosiation_info(user.getAssosiation_info());
+        userExicte.setNumphone(user.getNum_phone());
+        userExicte.setAssosiationInfo(user.getAssosiation_info());
 
         repository.save(userExicte);
         return "Updated";
@@ -93,18 +90,18 @@ public class AuthenticationService {
     public JwtResponse authenticate(AuthenticationRequest request) {
         User u= repository.FoundAcountBYMail(request.getEmail());
         if (u != null  ){
-            if (! passwordEncoder.matches(request.getPassword() , u.getPassword()  ) && u.getNbr_tentatives()< 5){
+            if (! passwordEncoder.matches(request.getPassword() , u.getPassword()  ) && u.getNbrtentatives()< 5){
 
-                u.setNbr_tentatives(u.getNbr_tentatives()+1);
+                u.setNbrtentatives(u.getNbrtentatives()+1);
                 repository.save(u);
 
-                if(u.getNbr_tentatives() >= 5){
+                if(u.getNbrtentatives() >= 5){
 
                     u.setEnabled(Boolean.TRUE);
-                    u.setSleep_time(new Date(System.currentTimeMillis()));
+                    u.setSleeptime(new Date(System.currentTimeMillis()));
                     repository.save(u);
                 }
-            }else if(passwordEncoder.matches(request.getPassword() , u.getPassword()  ) && u.getNbr_tentatives()< 5) {
+            }else if(passwordEncoder.matches(request.getPassword() , u.getPassword()  ) && u.getNbrtentatives()< 5) {
                 authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(
                                 request.getEmail(),
