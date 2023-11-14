@@ -16,15 +16,29 @@ pipeline {
             }
         }
 
+      stage ("Sonar Cube"){
+        steps{
+             withSonarQubeEnv('SonarQube'){
+            sh """
+                        mvn sonar:sonar \
+			-D sonar.login=admin \
+                        -D sonar.password=admin1 \
+			-D sonar.projectKey=org.springframework.boot \
+                        
+                    """
+            
+            
+             }
+            }
+        }
 
-
-    stage("SonarQube ") {
+   /* stage("SonarQube ") {
             steps {
               withSonarQubeEnv('SonarQube') {
                 sh 'mvn  sonar:sonar -Dsonar.login=admin -Dsonar.password:admin1'
               }
             }
-    }
+    }*/
 
         
 
