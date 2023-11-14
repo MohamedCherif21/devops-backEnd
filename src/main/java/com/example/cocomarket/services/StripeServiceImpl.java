@@ -5,6 +5,7 @@ import com.example.cocomarket.interfaces.StripeService;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -13,8 +14,10 @@ import java.util.Map;
 @Service
 public class StripeServiceImpl implements StripeService {
 
+    @Value("${stripe.api.key}")
+    private String stripeApiKey;
     public StripeServiceImpl() {
-        Stripe.apiKey="sk_test_51MkxwWBumFf5y8RzJF6k3wqx7NLaNNxKvhnxQnQzfizfHI2MNwCOnZCsiullqQD3Cnubyetks2WJABqERL07nWJD007Y5crYwq" ;
+        Stripe.apiKey = stripeApiKey;
     }
 
     @Override

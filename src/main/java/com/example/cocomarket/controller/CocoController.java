@@ -54,9 +54,11 @@ public class CocoController {
     }
 
     @PostMapping("")
-    public Catalogue addCatalogue(@RequestBody Catalogue catalogue) throws IOException, com.google.zxing.WriterException {
-        return catalogueService.addCatalogue(catalogue);
+    public Catalogue  addCatalogue(@RequestBody Catalogue  catalogueDTO) throws IOException, com.google.zxing.WriterException {
+
+        return catalogueService.addCatalogue(catalogueDTO);
     }
+
 
     @PutMapping("")
     public Catalogue updateCatalogue(@RequestBody Catalogue catalogue) {

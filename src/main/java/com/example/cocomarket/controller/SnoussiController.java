@@ -117,16 +117,6 @@ public class SnoussiController {
         produitinterface.addProduitAffeASHopAndAffeAcategorie(produit.getId(), idShop, idCateg);
     }
 
-
-    @PostMapping("/ajouterRainting/{idProduit}")
-    public void addRaitingtoProduit(@RequestBody Raiting_Product raintingP, @PathVariable Integer idProduit) {
-        raitingprointerface.addNEwRaitingProduit(raintingP);
-        produitinterface.addRaitingtoProduit(raintingP.getId(),idProduit);
-
-
-    }
-
-
     @Autowired
     private ProduitRepository produitrepo;
     @GetMapping(path = "/generateQrCode/{shopId}", produces = MediaType.IMAGE_PNG_VALUE)

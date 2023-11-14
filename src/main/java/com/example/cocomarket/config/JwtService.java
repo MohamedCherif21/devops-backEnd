@@ -17,8 +17,10 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
+  @Value("${SECRET_KEY}")
+  private static String secret;
 
-  private static final String SECRET_KEY = "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970";
+  private static final String SECRET_KEY = secret;
 
   public String extractUsername(String token) {
     return extractClaim(token, Claims::getSubject);
@@ -74,10 +76,9 @@ public class JwtService {
     return Keys.hmacShaKeyFor(keyBytes);
   }
 
-  @Value(SECRET_KEY)
-  private String secret;
 
   public String getUsernameFromToken(String token) {
-    return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
+    return Jwts.parserBuilder().build().parseClaimsJws(token).getBody().getSubject();
   }
+
 }
