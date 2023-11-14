@@ -3,7 +3,7 @@ package com.example.cocomarket.controller;
 import com.example.cocomarket.entity.Comentaire;
 import com.example.cocomarket.entity.Publication;
 import com.example.cocomarket.interfaces.IPublication;
-import com.example.cocomarket.services.Publication__Service;
+import com.example.cocomarket.services.PublicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class PublicationController {
     IPublication questionService;
 
     @Autowired
-    private Publication__Service publicationService;
+    private PublicationService publicationService;
 
     @GetMapping("/all")
     public ResponseEntity<List<Publication>> getAllQuestions() {

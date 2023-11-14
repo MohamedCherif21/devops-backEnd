@@ -4,7 +4,7 @@ import com.example.cocomarket.entity.Koffa;
 import com.example.cocomarket.entity.Produit;
 import com.example.cocomarket.repository.KoffaRepository;
 import com.example.cocomarket.services.KoffaService;
-import com.example.cocomarket.services.Produit__Service;
+import com.example.cocomarket.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ public class KoffaController {
     private KoffaRepository koffa_Repository;
 
     @Autowired
-    private Produit__Service produit__service;
+    private ProductService produit__service;
 
     @PostMapping("/koffas")
     public Koffa createKoffa(@RequestBody Koffa koffa) {

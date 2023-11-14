@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class Produit_Cart_Service {
+public class ProduitCartService {
 
 
 
@@ -34,13 +34,18 @@ public class Produit_Cart_Service {
     }
 
     public void deleteProduitById(Integer cartId, Integer produitId) {
-        CART cart = cr.findById(cartId).orElseThrow(null);
-        Produit produit = pr.findById(produitId).orElseThrow(null);
-        Optional<ProduitCart> produitCart = produitCartRepository.findByCartAndProduit(cart,produit);
-        Integer quantity = produitCart.map(ProduitCart::getQuantity).orElse(0);
-        if(quantity == 0){
-            produitCartRepository.delete(produitCart.get());
-        }
+        CART cart = cr.findById(cartId).orElseThrow(() -> new RuntimeException("Cart not found with ID: " + cartId));
+        Produit produit = pr.findById(produitId).orElseThrow(() -> new RuntimeException("Produit not found with ID: " + produitId));
 
+        Optional<ProduitCart> produitCart = produitCartRepository.findByCartAndProduit(cart, produit);
+
+        if (produitCart.isPresent()) {
+            Integer quantity = produitCart.get().getQuantity();
+
+            if (quantity == 0) {
+                produitCartRepository.delete(produitCart.get());
+            }
+        }
     }
+
 }

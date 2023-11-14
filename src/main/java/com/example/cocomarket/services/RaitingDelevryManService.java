@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class Raiting_DelevryMan_Service implements IRaitingDelevryMan {
+public class RaitingDelevryManService implements IRaitingDelevryMan {
     @Autowired
     RaitingDelevryManRepository rr;
     @Override

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class Publication__Service implements IPublication {
+public class PublicationService implements IPublication {
     @Autowired
     PublicationRepository questionRepository;
     @Autowired

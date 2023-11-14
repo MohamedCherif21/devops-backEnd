@@ -1,7 +1,7 @@
 package com.example.cocomarket.controller;
 
 
-import com.example.cocomarket.services.Produit_Cart_Service;
+import com.example.cocomarket.services.ProduitCartService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProduitCartController {
 
     @Autowired
-    Produit_Cart_Service produitCartService;
+    ProduitCartService produitCartService;
 
     @GetMapping("/{cartId}/products/{produitId}/quantity")
     public ResponseEntity<Integer> getQuantityByCartIdAndProduitId(@PathVariable Integer cartId,

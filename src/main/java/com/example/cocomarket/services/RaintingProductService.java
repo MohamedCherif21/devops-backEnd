@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class Rainting_Product_Service implements IRaintingProduct {
+public class RaintingProductService implements IRaintingProduct {
 
 
 

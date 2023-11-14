@@ -12,15 +12,12 @@ import org.webjars.NotFoundException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import java.util.Optional;
 
 @Service
 public class CommandeService implements ICommande {
@@ -125,7 +122,7 @@ public class CommandeService implements ICommande {
             Coupon coupon = couponRepository.findByCode(couponCode);
             if (coupon != null && !coupon.isUsed()) {
                 double discount = coupon.getDiscount();
-                double total = cart.getTotal_price() + commande.getTax();
+                double total = (cart.getTotal_price()) + (commande.getTax());
                 double discountedTotal = total - (total * discount);
                 commande.setTotalprice((long) discountedTotal);
                 if (commande.getEtat()==Etat.VALIDATED){
@@ -154,10 +151,18 @@ public class CommandeService implements ICommande {
 
     @Override
     public Set<Commande> afficherAllCommandes(Integer idcart) {
-        CART cart = car.findById(idcart).get();
-        return cart.getCommande_cart();
+        Optional<CART> optionalCart = car.findById(idcart);
 
+        if (optionalCart.isPresent()) {
+            CART cart = optionalCart.get();
+            return cart.getCommande_cart();
+        } else {
+            // Handle the case where the Optional is empty, e.g., return an empty set or throw an exception.
+            // For now, I'm returning an empty set as an example.
+            return Collections.emptySet();
+        }
     }
+
 
     @Override
     public List<Commande> afficherAllCommandesadmin() {

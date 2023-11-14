@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class Shop_Service implements IShop {
+public class ShopService implements IShop {
     @Autowired
-    ShopRepository Shoprepo ;
+    ShopRepository shoprepo;
 
     @Autowired
     ContratRepository contratrepo ;
@@ -22,33 +22,33 @@ public class Shop_Service implements IShop {
     @Override
     public List<Shop> afficherLesShop() {
         return
-                Shoprepo.findAll();
+                shoprepo.findAll();
     }
 
     @Override
     public void supprimerShop(int id) {
-        Shoprepo.deleteById(id);
+        shoprepo.deleteById(id);
     }
 
     @Override
     public Shop RetriveByid(int id) {
-        return Shoprepo.findById(id).orElse(null);
+        return shoprepo.findById(id).orElse(null);
     }
 
     @Override
     public Shop addNewshop(Shop shp ) {
-        return Shoprepo.save(shp);
+        return shoprepo.save(shp);
     }
 
     @Override
-    public void addContratToShop(Integer idcontrat , Integer idshop) {
-
-
-        Shop shop = Shoprepo.findById(idshop).orElse(null) ;
-        Contrat c = contratrepo.findById(idcontrat).orElse(null) ;
-        shop.setContratShop(c);  ;
-        Shoprepo.save(shop) ;
-
+    public void addContratToShop(Integer idcontrat, Integer idshop) {
+        Shop shop = shoprepo.findById(idshop).orElse(null);
+        Contrat c = contratrepo.findById(idcontrat).orElse(null);
+        if (shop != null && c != null) {
+            shop.setContratShop(c);
+            shoprepo.save(shop);
+        }
     }
+
 
 }

@@ -1,7 +1,7 @@
 package com.example.cocomarket.controller;
 
 import com.example.cocomarket.entity.Produit;
-import com.example.cocomarket.services.Produit__Service;
+import com.example.cocomarket.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +12,7 @@ import java.util.List;
 public class ProduitController {
 
     @Autowired
-    private Produit__Service produitService;
+    private ProductService produitService;
 
     @PostMapping
     public Produit createProduit(@RequestBody Produit produit) {
