@@ -21,9 +21,7 @@ pipeline {
     stage("SonarQube ") {
             steps {
               withSonarQubeEnv('SonarQube') {
-                sh 'mvn  sonar:sonar 
-                -Dsonar.login=admin
-                -Dsonar.password=admin1'
+                sh 'mvn clean -DskipTests package sonar:sonar'
               }
             }
     }
