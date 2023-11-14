@@ -130,8 +130,7 @@
             <artifactId>thumbnailator</artifactId>
             <version>0.4.13</version>
         </dependency>
-        <!--^^^^ Amir ^^^^-->
-        <!--Snoussi -->
+      
 
         <dependency>
             <groupId>com.google.zxing</groupId>
@@ -157,8 +156,7 @@
         </dependency>
 
 
-        <!--^^^^ Snoussi ^^^^-->
-        <!--Hamza_Sbai-->
+       
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
@@ -177,9 +175,9 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-        <!--^^^^ Hamza_Sbai ^^^^-->
+        
 
-        <!--SI Cherif -->
+       
         <dependency>
             <groupId>com.stripe</groupId>
             <artifactId>stripe-java</artifactId>
@@ -193,7 +191,7 @@
         </dependency>
 
 
-        <!--^^^^ SI Cherif ^^^^-->
+       
     </dependencies>
     <!-- Deploy to Nexus -->
     <distributionManagement>
