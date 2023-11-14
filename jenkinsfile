@@ -24,7 +24,7 @@ pipeline {
 
     stage("SonarQube ") {
             steps {
-              withSonarQubeEnv('SonarQube') {
+              withSonarQubeEnv('jenkins-sonar') {
                 sh 'mvn clean -DskipTests package sonar:sonar'
               }
             }
