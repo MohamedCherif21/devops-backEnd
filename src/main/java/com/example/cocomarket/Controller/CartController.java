@@ -87,13 +87,21 @@ public class CartController {
 
     @GetMapping("/totalprice/{cartId}")
     public Long gettotalprice(@PathVariable("cartId") Integer cartId) {
-        // Récupérer le panier correspondant à l'ID donné
-        Optional<CART> optionalCart = car.findById(cartId);
+    // Récupérer le panier correspondant à l'ID donné
+    Optional<CART> optionalCart = car.findById(cartId);
+
+     // Vérifier si la valeur optionnelle est présente avant d'y accéder
+    if (optionalCart.isPresent()) {
         // Récupérer le nombre de produits dans le panier à l'aide de la méthode "getNbProd()" de la classe CART
         Long totalprice = optionalCart.get().getTotal_price();
         // Renvoyer le nombre de produits dans le corps de la réponse HTTP avec un code 200 OK
         return totalprice;
+      } else {
+        // Gérer le cas où la valeur optionnelle n'est pas présente, par exemple en renvoyant null
+        return null;
     }
+}
+
 
     @GetMapping("/{cartId}/productQuantities")
     public ResponseEntity<Map<Integer, Integer>> getProductQuantities(@PathVariable Integer cartId) {
