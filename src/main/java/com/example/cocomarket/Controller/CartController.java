@@ -32,18 +32,7 @@ public class CartController {
     Commande_Repository cr ;
 
     @Autowired
-    Produit__Repository produit__repository ;
-/*
-    @PostMapping("/panier/ajouter-produit/{idProduit}")
-    public void ajouterProduit_aupanier(@PathVariable Integer idProduit, HttpSession session) {
-        CART panier = (CART) session.getAttribute("panier"); // récupère le panier de l'utilisateur depuis la session
-        if (panier == null) {
-            panier = new CART();
-            session.setAttribute("panier", panier); // enregistre le panier dans la session s'il n'existe pas encore
-        }
-        cart_service.Add_Product_To_Cart(idProduit,panier); // appelle la méthode ajouterProduit() du service
-    }
-    */
+    ProduitRepository produitRepository; ;
 
 
     @PostMapping("/panier/ajouter-produit/{idProduit}/{idCart}")
@@ -52,19 +41,7 @@ public class CartController {
         cart_service.Add_Product_To_Cart(idProduit,idCart);
     }
 
-    /* @PostMapping("/panier/ajouter-produit")
-    public CART addToCart(@RequestBody Produit product, @RequestBody CART cart) {
-        return cart_service.addToCart(cart, product);
-    }
 
-/*
-    @DeleteMapping("/panier/supprimer-produit/{idProduit}")
-    public void supprimerProduit(@PathVariable Integer idProduit, HttpSession session) {
-        CART panier = (CART) session.getAttribute("panier");
-        if (panier != null) {
-            Produit produit = produit__repository.getReferenceById(idProduit);
-            cart_service.Remove_Product(panier, produit);
-        }*/
 
     @DeleteMapping("/panier/supprimer-produit/{idProduit}/{idCart}")
     public void supprimerProduit(@PathVariable ("idProduit")Integer idProduit,
