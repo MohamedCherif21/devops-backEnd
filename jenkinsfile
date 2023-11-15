@@ -35,8 +35,8 @@ pipeline {
     stage("SonarQube ") {
             steps {
               script {
-                       withCredentials ([string(credentialsId: 'jenkins-sonar', variable: 'sonar')]){
-                           sh "mvn sonar:sonar -Dsonar.login=${sonar}"}
+                       withCredentials ([string(credentialsId: 'sonar', variable: 'sonar')]){
+                           sh "mvn sonar:sonar -Dsonar.login=${jenkins-sonar}"}
                 
                
                 }
