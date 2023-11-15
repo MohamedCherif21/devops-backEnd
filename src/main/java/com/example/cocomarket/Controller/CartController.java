@@ -6,7 +6,6 @@ import com.example.cocomarket.Repository.Commande_Repository;
 import com.example.cocomarket.Repository.Produit__Repository;
 import com.example.cocomarket.Services.Cart_Service;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
