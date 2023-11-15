@@ -1,5 +1,4 @@
-package com.example.cocomarket.controller;
-
+package com.example.cocomarket.Controller;
 
 import com.example.cocomarket.Entity.*;
 import com.example.cocomarket.Repository.Cart_Repository;
@@ -7,6 +6,7 @@ import com.example.cocomarket.Repository.Commande_Repository;
 import com.example.cocomarket.Repository.Produit__Repository;
 import com.example.cocomarket.Services.Cart_Service;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +32,8 @@ public class CartController {
     Commande_Repository cr ;
 
     @Autowired
-    ProduitRepository produitRepository; ;
+    Produit__Repository produit__repository ;
+
 
 
     @PostMapping("/panier/ajouter-produit/{idProduit}/{idCart}")
@@ -77,31 +78,25 @@ public class CartController {
         return products;
     }
 
-   @GetMapping("/numProducts/{cartId}")
-   public Integer getNumProducts(@PathVariable("cartId") Integer cartId) {
-    // Récupérer le panier correspondant à l'ID donné
-    Optional<CART> optionalCart = car.findById(cartId);
-    // Renvoyer le nombre de produits dans le corps de la réponse HTTP avec un code 200 OK
-    return optionalCart.map(CART::getNbProd).orElse(null);
+    @GetMapping("/numProducts/{cartId}")
+    public Integer getNumProducts(@PathVariable("cartId") Integer cartId) {
+        // Récupérer le panier correspondant à l'ID donné
+        Optional<CART> optionalCart = car.findById(cartId);
+        // Récupérer le nombre de produits dans le panier à l'aide de la méthode "getNbProd()" de la classe CART
+        Integer numProducts = optionalCart.get().getNbProd();
+        // Renvoyer le nombre de produits dans le corps de la réponse HTTP avec un code 200 OK
+        return numProducts;
     }
 
     @GetMapping("/totalprice/{cartId}")
     public Long gettotalprice(@PathVariable("cartId") Integer cartId) {
-    // Récupérer le panier correspondant à l'ID donné
-    Optional<CART> optionalCart = car.findById(cartId);
-
-     // Vérifier si la valeur optionnelle est présente avant d'y accéder
-    if (optionalCart.isPresent()) {
+        // Récupérer le panier correspondant à l'ID donné
+        Optional<CART> optionalCart = car.findById(cartId);
         // Récupérer le nombre de produits dans le panier à l'aide de la méthode "getNbProd()" de la classe CART
         Long totalprice = optionalCart.get().getTotal_price();
         // Renvoyer le nombre de produits dans le corps de la réponse HTTP avec un code 200 OK
         return totalprice;
-      } else {
-        // Gérer le cas où la valeur optionnelle n'est pas présente, par exemple en renvoyant null
-        return null;
     }
-}
-
 
     @GetMapping("/{cartId}/productQuantities")
     public ResponseEntity<Map<Integer, Integer>> getProductQuantities(@PathVariable Integer cartId) {
