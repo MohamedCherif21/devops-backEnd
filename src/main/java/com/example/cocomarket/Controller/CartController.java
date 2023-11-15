@@ -77,14 +77,12 @@ public class CartController {
         return products;
     }
 
-    @GetMapping("/numProducts/{cartId}")
-    public Integer getNumProducts(@PathVariable("cartId") Integer cartId) {
-        // Récupérer le panier correspondant à l'ID donné
-        Optional<CART> optionalCart = car.findById(cartId);
-        // Récupérer le nombre de produits dans le panier à l'aide de la méthode "getNbProd()" de la classe CART
-        Integer numProducts = optionalCart.get().getNbProd();
-        // Renvoyer le nombre de produits dans le corps de la réponse HTTP avec un code 200 OK
-        return numProducts;
+   @GetMapping("/numProducts/{cartId}")
+   public Integer getNumProducts(@PathVariable("cartId") Integer cartId) {
+    // Récupérer le panier correspondant à l'ID donné
+    Optional<CART> optionalCart = car.findById(cartId);
+    // Renvoyer le nombre de produits dans le corps de la réponse HTTP avec un code 200 OK
+    return optionalCart.map(CART::getNbProd).orElse(null);
     }
 
     @GetMapping("/totalprice/{cartId}")
