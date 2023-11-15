@@ -11,7 +11,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
 public class Shop {
     @Id
