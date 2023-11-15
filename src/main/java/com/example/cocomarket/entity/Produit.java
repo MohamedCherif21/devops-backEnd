@@ -17,18 +17,30 @@ import javax.persistence.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class Produit {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
+
     @NonNull
     private Integer id;
+
     private String reference;
+
+    @NonNull
     private String nom;
+
+
     private String img;
     private String description;
+    @NonNull
     private Long prix;
+    @NonNull
     private Float weight;
+    @NonNull
     private Float volume ;
+
+
     private Boolean etatsProduit;//mawjoud ou non
     @Enumerated(EnumType.STRING)
     private Status status;//ywefe9 3lih lbaye3 bch ybi3ou ou non//par default Null

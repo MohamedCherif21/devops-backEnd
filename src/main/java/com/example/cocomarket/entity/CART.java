@@ -38,4 +38,6 @@ public class CART implements Serializable {
     private User user ;
 
 
+    public CART(int i, int i1, double v, double v1, double v2) {
+    }
 }

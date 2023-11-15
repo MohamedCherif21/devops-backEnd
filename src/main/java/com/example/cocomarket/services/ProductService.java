@@ -25,6 +25,13 @@ public class ProductService implements IProduit {
        public List<Produit> getProduitByIds(Integer id) {
             return (List<Produit>) produitRepository.findById(id).orElse(null);
     }
+
+
+    public Produit retrieveProduct(Integer id) {
+        return produitRepository.findById(id).orElseThrow(() -> new NullPointerException("Product not found"));
+    }
+
+
     public List<Produit> getAllProduits() {
         return produitRepository.findAll();
     }

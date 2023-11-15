@@ -4,7 +4,6 @@ import com.example.cocomarket.entity.*;
 import com.example.cocomarket.interfaces.ICommande;
 import com.example.cocomarket.repository.*;
 import com.example.cocomarket.config.EmailSenderService;
-import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -14,29 +13,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+
 
 @Service
 public class CommandeService implements ICommande {
 
-
-    @Mock
-    private Commande_Repository commandeRepository;
-
-    @Mock
-    private LivraisonRepository livraisonRepository;
-
-    @Mock
-    private CartRepository cartRepository;
-
-    @Mock
-    private EmailSenderService emailSenderService;
-
-    @InjectMocks
-    private CommandeService service;
     @Autowired
     Commande_Repository cr;
     @Autowired
@@ -178,16 +159,6 @@ public class CommandeService implements ICommande {
         }
     }
 
-    @Test
-    void testAccepterCommande() {
-        Mockito.when(commandeRepository.findById(ArgumentMatchers.anyInt())).thenReturn(Optional.of(new Commande()));
-
-        service.accepterCommande(1);
-
-        // Add assertions based on your business logic
-        // For example, verify that the save method is called
-        Mockito.verify(commandeRepository).save(ArgumentMatchers.any());
-    }
 
 
     @Override
@@ -269,17 +240,6 @@ public class CommandeService implements ICommande {
                 throw new NullPointerException("La commande ne peut plus être annulée.");
             }
         }
-    }
-
-    @Test
-    void testAnnulerCommande() {
-        Mockito.when(commandeRepository.findById(ArgumentMatchers.anyInt())).thenReturn(Optional.of(new Commande()));
-
-        service.annulerCommande(1);
-
-        // Add assertions based on your business logic
-        // For example, verify that the delete method is called
-        Mockito.verify(commandeRepository).delete(ArgumentMatchers.any());
     }
 
 
