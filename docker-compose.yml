@@ -1,44 +1,52 @@
-version: '2.21.0'
+version: "3.8"
+
 services:
-  mysql:
-    image: mysql:latest
-    ports:
-      - "3306:3306"
+  mysqldb:
+    image: mysql:8
+    restart: unless-stopped
     environment:
-      MYSQL_DATABASE: CoCoMarket
+      - MYSQL_ALLOW_EMPTY_PASSWORD
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=devops
+    ports:
+      - 3306:3306
     volumes:
-      - mysql_data:/var/lib/mysql
-      - mysql_config:/etc/mysql/conf.d
+      - db:/var/lib/mysql
     networks:
-      - spring-network
+      - NOTwork
 
   backend:
     image: samibenlakhal/backendimage
-    ports:
-      - "8088:8088"
-    environment:
-      - spring.datasource.url=jdbc:mysql://mysql:3306/CoCoMarket?createDatabaseIfNotExist=true
-    volumes:
-      - spring_data:/app/data
     depends_on:
-      - mysql
+      - mysqldb
+    build: ./
+    restart: on-failure
+    ports:
+      - 8083:8083
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url=jdbc:mysql://mysqldb:3306/devops?createDatabaseIfNotExist=true",
+        "spring.datasource.username" : "root",
+        "spring.datasource.password" : "root",
+        "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
+        "spring.jpa.hibernate.ddl-auto" : "update"}'
+    volumes:
+      - ./m2:/root/.m2
     networks:
-      - spring-network
+      - NOTwork
 
   frontend:
     image: samibenlakhal/frontendimage
+    build: ./DevOps_Project_Front
+    restart: on-failure
     ports:
-      - "4200:80"
-    volumes:
-      - angular_data:/app/data
+      - 8181:80
     networks:
-      - spring-network
+      - NOTwork
 
 networks:
-  backend-network:
+  NOTwork:
     driver: bridge
+
 volumes:
-  angular_data:
-  mysql_data:
-  mysql_config:
-  spring_data:
+  db:
