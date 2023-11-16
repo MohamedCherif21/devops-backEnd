@@ -10,7 +10,7 @@ services:
       - mysql_data:/var/lib/mysql
       - mysql_config:/etc/mysql/conf.d
     networks:
-      - backend-network
+      - springboot-network
 
   backend:
     image: samibenlakhal/backendimage
@@ -23,16 +23,16 @@ services:
     depends_on:
       - mysql
     networks:
-      - backend-network
+      - springboot-network
 
   frontend:
     image: samibenlakhal/frontendimage
     ports:
-      - "4200:85"
+      - "4200:80"
     volumes:
       - angular_data:/app/data
     networks:
-      - backend-network
+      - springboot-network
 
 networks:
   backend-network:
