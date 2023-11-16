@@ -27,7 +27,7 @@ public class StorageService {
 
     public String uploadImage(MultipartFile file , Integer id ) throws IOException {
 
-        Produit p = repoproduit.findById(id).orElse(null) ;
+       /* Produit p = repoproduit.findById(id).orElse(null) ;
         Set<ImageData> List=  p.getImage();
         ImageData imageData= ImageData.builder()
                 .name(file.getOriginalFilename())
@@ -35,7 +35,7 @@ public class StorageService {
                 .imageData(ImageUtils.compressImage(file.getBytes())).build();
 
         if (imageData != null) {
-          /*  for(ImageData im:List){
+            for(ImageData im:List){
                 im.setProduit(p);
                 repository.save(im);
 
