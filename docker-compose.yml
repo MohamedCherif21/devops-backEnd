@@ -1,0 +1,27 @@
+version: "3"
+services:
+  spring-ski:
+    image: khaledbouchrika829/gestionski
+    ports:
+      - "8089:8089"
+    networks:
+      - ski
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb/stationSki
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    image: mysql:8
+    volumes:
+      -  /home/mysql/khaleddata:/var/lib/mysql:rw
+    networks:
+      - ski
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=stationSki
+
+networks:
+  ski:
