@@ -6,6 +6,7 @@ import com.example.cocomarket.Repository.Commande_Repository;
 import com.example.cocomarket.Repository.Produit__Repository;
 import com.example.cocomarket.Services.Cart_Service;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 public class CartController {
 
     @Autowired
-    Cart_Service cartservice;
+    Cart_Service cart_service;
 
     @Autowired
     Cart_Repository car ;
@@ -31,7 +32,7 @@ public class CartController {
     Commande_Repository cr ;
 
     @Autowired
-    Produit__Repository produitrepository ;
+    Produit__Repository produit__repository ;
 
 
 
@@ -82,7 +83,7 @@ public class CartController {
         // Récupérer le panier correspondant à l'ID donné
         Optional<CART> optionalCart = car.findById(cartId);
         // Récupérer le nombre de produits dans le panier à l'aide de la méthode "getNbProd()" de la classe CART
-      //  Integer numProducts = optionalCart.get().getNbProd();
+        Integer numProducts = optionalCart.get().getNbProd();
         // Renvoyer le nombre de produits dans le corps de la réponse HTTP avec un code 200 OK
         return numProducts;
     }
@@ -92,7 +93,7 @@ public class CartController {
         // Récupérer le panier correspondant à l'ID donné
         Optional<CART> optionalCart = car.findById(cartId);
         // Récupérer le nombre de produits dans le panier à l'aide de la méthode "getNbProd()" de la classe CART
-       // Long totalprice = optionalCart.get().getTotal_price();
+        Long totalprice = optionalCart.get().getTotal_price();
         // Renvoyer le nombre de produits dans le corps de la réponse HTTP avec un code 200 OK
         return totalprice;
     }
@@ -103,7 +104,7 @@ public class CartController {
         return ResponseEntity.ok(productQuantities);
     }
 
-   @GetMapping("/carts/{cartId}/products/names")
+    @GetMapping("/carts/{cartId}/products/names")
     public List<String> getProductsNames(@PathVariable Integer cartId) {
         CART cart = car.findById(cartId).orElseThrow(null);
         List<String> productNames = new ArrayList<>();
@@ -120,8 +121,6 @@ public class CartController {
 
 
 /**************************PAYPAL**********************************/
-
-
 
 
 
