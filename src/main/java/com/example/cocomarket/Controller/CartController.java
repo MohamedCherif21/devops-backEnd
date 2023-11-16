@@ -34,12 +34,12 @@ public class CartController {
     Produit__Repository produitrepository ;
 
 
-/*
+
     @PostMapping("/panier/ajouter-produit/{idProduit}/{idCart}")
     public void ajouterProduit_aupanier(@PathVariable ("idProduit") Integer idProduit,
                                         @PathVariable ("idCart") Integer idCart) {
         cart_service.Add_Product_To_Cart(idProduit,idCart);
-    }*/
+    }
 
 
 
@@ -55,7 +55,7 @@ public class CartController {
         return cart_service.retrive_one_Product(idCart,idProduit);
     }
 
-/*
+
     @GetMapping("/retrieve-Product_in_cart/{idCart}")
     public List<Produit> retrieveProduct_in_cart(@PathVariable("idCart") Integer IdCart) {
         return cart_service.retrieveAllProductInCart(IdCart);
@@ -75,7 +75,7 @@ public class CartController {
                 .collect(Collectors.toList());
 
         return products;
-    }*/
+    }
 
     @GetMapping("/numProducts/{cartId}")
     public Integer getNumProducts(@PathVariable("cartId") Integer cartId) {
@@ -96,14 +96,14 @@ public class CartController {
         // Renvoyer le nombre de produits dans le corps de la réponse HTTP avec un code 200 OK
         return totalprice;
     }
-/*
+
     @GetMapping("/{cartId}/productQuantities")
     public ResponseEntity<Map<Integer, Integer>> getProductQuantities(@PathVariable Integer cartId) {
         Map<Integer, Integer> productQuantities = Cart_Service.getProductQuantitiesByCartId(cartId);
         return ResponseEntity.ok(productQuantities);
-    }*/
+    }
 
-   /* @GetMapping("/carts/{cartId}/products/names")
+   @GetMapping("/carts/{cartId}/products/names")
     public List<String> getProductsNames(@PathVariable Integer cartId) {
         CART cart = car.findById(cartId).orElseThrow(null);
         List<String> productNames = new ArrayList<>();
@@ -111,7 +111,7 @@ public class CartController {
             productNames.add(produitCart.getProduit().getNom());
         }
         return productNames;
-    }*/
+    }
 }
 
 
