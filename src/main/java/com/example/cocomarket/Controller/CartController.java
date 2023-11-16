@@ -1,4 +1,4 @@
-package com.example.cocomarket.controller;
+package com.example.cocomarket.Controller;
 
 import com.example.cocomarket.Entity.*;
 import com.example.cocomarket.Repository.Cart_Repository;
